@@ -11,7 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+<<<<<<< HEAD
 
+=======
+>>>>>>> 59c5904 (Subiendo avance proyecto web)
 .env
 
 # Editor directories and files
