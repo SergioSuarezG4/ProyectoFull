@@ -21,7 +21,7 @@ const Register = () => {
 
   return (
     <Formik
-      initialValues={{ nombre: "", email: "", password: "", rol_id: 2 }}
+      initialValues={{ nombre: "", email: "", password: "", rol_id: 1 }}
       onSubmit={handleFormSubmit}
     >
       {({ handleSubmit, handleChange, handleBlur, values, setFieldValue }) => (
@@ -99,8 +99,8 @@ const Register = () => {
                   onChange={(e) => setFieldValue("rol_id", Number(e.target.value))}
                   onBlur={handleBlur}
                 >
-                  <option value={1}>Cliente</option>
-                  <option value={2}>Admin</option>
+                  <option value={1}>Admin</option>
+                  <option value={2}>Cliente</option>
                   <option value={3}>Recepcionista</option>
                 </select>
               </div>

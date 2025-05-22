@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
-import Login from "../pages/auth/Login"
-import Register from "../pages/auth/Register";
-import HomeCoworking from "../pages/home/HomeCoworking";
+import Login from "../pages/Auth/Login";
+import Register from "../pages/Auth/Register";
+import HomeCoworking from "../pages/Home/HomeCoworking";
 import CreateSpace from "../pages/Space/CreateSpace";
 import UsuarioAdmin from "../pages/admin/UsuariosAdmin";
 

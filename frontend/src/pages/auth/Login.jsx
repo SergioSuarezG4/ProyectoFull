@@ -2,8 +2,12 @@ import { Formik } from "formik";
 import { useState } from "react";
 import { loginUser } from "../../services/authService";
 import { FiUser} from "react-icons/fi";
+import { useContext } from "react";
+import { AuthContext } from "../../hooks/AuthProvider";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleFormSubmit = async (values, { resetForm }) => {
@@ -17,6 +21,8 @@ const Login = () => {
     try {
       const data = await loginUser(values);
       console.log("Usuario autenticado correctamente.", data);
+
+      login(data.user, data.token);
       resetForm();
     } catch (error) {
 

@@ -1,41 +1,16 @@
-import { FastField } from "formik";
 import { useState } from "react";
-import {
-  FiUser,
-  FiUserPlus,
-  FiHome,
-  FiUsers,
-  FiClipboard,
-  FiUserCheck,
-  FiCalendar,
-  FiMenu,
-  FiX,
-} from "react-icons/fi";
+import { FiMenu, FiX } from "react-icons/fi";
+import { useContext } from "react"
+import { AuthContext } from "../../hooks/AuthProvider"
 import { NavLink } from "react-router-dom";
+import { rolMap, menuItems} from "../sideBar/MenuSideBar";
 
-const menuItems = {
-  guest: [
-    { name: "Home", path: "/", icon: FiHome },
-    { name: "Iniciar Sesion", path: "/login", icon: FiUser },
-    { name: "Registrarse", path: "/register", icon: FiUserPlus },
-  ],
-  admin: [
-    { name: "Dashboard", path: "/admin/dashboard", icon: FiHome },
-    { name: "Usuarios", path: "/admin/users", icon: FiUsers },
-    { name: "Reportes", path: "/admin/reports", icon: FiClipboard },
-  ],
-  recepcionista: [
-    { name: "Check-in", path: "/recepcionista/checkin", icon: FiUserCheck },
-    { name: "Check-out", path: "/recepcionista/checkout", icon: FiUserCheck },
-  ],
-  cliente: [
-    { name: "Mis Reservas", path: "/cliente/reservas", icon: FiCalendar },
-    { name: "Mi Perfil", path: "/cliente/perfil", icon: FiUsers },
-  ],
-};
-
-const SideBar = ({ rol = "admin" }) => {
+const SideBar = () => {
+  
   const [isOpen, setIsOpen] = useState(false);
+  const { usuario } = useContext(AuthContext);
+
+  const rol = rolMap[usuario?.rol_id] || "guest";
   const currentItems = menuItems[rol] || [];
 
   return (

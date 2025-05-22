@@ -68,6 +68,7 @@ func Login(c *gin.Context) {
 	var input LoginInput
 	var user models.User
 
+	// Parsear JSON recibido
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -92,10 +93,25 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	// Crear log de actividad
+	userResponse := struct {
+		ID     uint   `json:"id"`
+		Nombre string `json:"nombre"`
+		Email  string `json:"email"`
+		RolID  uint   `json:"rol_id"`
+	}{
+		ID:     user.ID,
+		Nombre: user.Nombre,
+		Email:  user.Email,
+		RolID:  user.RolID,
+	}
+
 	CreateActivityLog(user.ID, "inicio de sesión", "Usuario inició sesión")
 
-	c.JSON(http.StatusOK, gin.H{"token": token})
+	// Responder con token y usuario.
+	c.JSON(http.StatusOK, gin.H{
+		"token": token,
+		"user":  userResponse,
+	})
 }
 
 // Middleware para validar token

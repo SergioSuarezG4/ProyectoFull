@@ -5,6 +5,8 @@ import (
 	"backend/models"
 	"net/http"
 
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -73,14 +75,34 @@ func UpdateUser(c *gin.Context) {
 	var user models.User
 	if err := config.DB.First(&user, id).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Usuario no encontrado"})
-
 		return
 	}
-	if err := c.ShouldBindJSON(&user); err != nil {
+	var input struct {
+		Nombre   string `json:"nombre"`
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	config.DB.Save(&user)
+	user.Nombre = input.Nombre
+	user.Email = input.Email
+
+	if input.Password != "" {
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al encriptar la contraseña"})
+			return
+		}
+		user.Password = string(hashedPassword)
+	}
+
+	if err := config.DB.Save(&user).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al actualizar el usuario"})
+		return
+	}
+
 	c.JSON(http.StatusOK, user)
 }
 

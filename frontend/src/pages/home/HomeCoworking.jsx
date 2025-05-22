@@ -1,8 +1,21 @@
 // src/pages/HomeCoworking.jsx
 import React from "react";
-import CardHome from "../../components/CardHome";
+import CardHome from "../../components/card-home/CardHome";
+import { MdChair, MdCoPresent  } from "react-icons/md";
+import { GiDesk } from "react-icons/gi";
+import { SiGoogleclassroom } from "react-icons/si";
 
 const HomeCoworking = () => {
+
+    const menuItems = {
+    spaces: [
+      {name: "Oficina", descripcion: "Espacio privado para trabajar cómodamente sin interrupciones.", icon: MdChair},
+      {name: "Escritorio Libre", descripcion: "Zona de trabajo compartida con ambiente colaborativo.", icon: GiDesk},
+      {name: "Sala de Reuniones", descripcion: "Ideal para reuniones de equipo o presentaciones a clientes.", icon: SiGoogleclassroom },
+      {name: "Oficina Ejecutiva", descripcion: "Ambiente premium para directivos y sesiones privadas.", icon: MdCoPresent,},
+    ],
+  };
+
   return (
     <div>
       <header className="relative w-full h-[500px]">
@@ -25,7 +38,7 @@ const HomeCoworking = () => {
         </div>
       </section>
       <section>
-        <CardHome/>
+        <CardHome menuItems={menuItems}/>
       </section>
     </div>
   );

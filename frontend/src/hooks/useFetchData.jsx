@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../hooks/AuthProvider";
 
 const useFetchData = ({ endpoint }) => {
   const API_URL = "http://localhost:8080/api";
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoZWNob0BnbWFpbC5jb20iLCJleHAiOjE3NDc5NDg5NDMsInVzZXJfaWQiOjY1fQ.fvQrlYwNaao5rtp6u6aFXd2Pkh8QtbB8YrbhDxuWMTU";
+  const { token } = useContext(AuthContext);
 
   const [data, setData] = useState([]);
-  const [error, setError] = useState(null); // (opcional) para manejar errores
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,14 +18,16 @@ const useFetchData = ({ endpoint }) => {
           },
         });
         setData(response.data);
+        setError(null);
       } catch (err) {
         console.error("Error al obtener los datos:", err.message);
         setError(err);
+        setData([]);
       }
     };
 
     fetchData();
-  }, [endpoint]);
+  }, [endpoint, token]);
 
   return { data, error };
 };

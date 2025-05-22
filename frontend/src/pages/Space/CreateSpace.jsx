@@ -9,8 +9,7 @@ const CreateSpace = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .post(
+    axios.post(
         "http://localhost:8080/api/spaces/",
         { name, description },
         {
@@ -57,6 +56,18 @@ const CreateSpace = () => {
           />
         </div>
         <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+        >
+          Crear Espacio
+        </button>
+         <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+        >
+          Crear Espacio
+        </button>
+         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
         >
