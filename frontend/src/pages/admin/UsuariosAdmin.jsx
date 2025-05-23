@@ -4,6 +4,7 @@ import useFetchData from "../../hooks/useFetchData";
 import { useModal } from "../../hooks/useModal";
 import Modal from "../../components/modal-form/Modal";
 import { getAddUserCard, userTypeCards } from "./userConfig/UsuariosConfig";
+import { useState } from "react";
 
 const columns = [
     { label: "Nombre" },
@@ -16,8 +17,23 @@ const UsuarioAdmin = () => {
   const { data, error } = useFetchData({ endpoint: "users" });
   const { openModal, showModal, closeModal } = useModal();
   
+  const [isEdit, setIsEdit] = useState(false);
+  const [selectedUser, setSeletedUser] = useState(null)
+
+  const handleCreateUser = () => {
+    setSeletedUser(null)
+    setIsEdit(false)
+    openModal();
+  };
+
+  const handleEditUser = (user) => {
+    setSeletedUser(user)
+    setIsEdit(true)
+    openModal();
+  };
+
   const Users = {
-    spaces: [getAddUserCard(openModal), ...userTypeCards],
+    spaces: [getAddUserCard(handleCreateUser), ...userTypeCards],
   };
   return (
     <>
@@ -40,15 +56,15 @@ const UsuarioAdmin = () => {
             <CardHome menuItems={Users} color="gray" />
           </div>
           <div className="h-auto flex flex-col justify-end px-6 mt-8 ml-20">
-            <TableItem columns={columns} items={data} />
+            <TableItem columns={columns} items={data} onEdit={handleEditUser} />
           </div>
         </>
       )}
       <Modal
-        edit={false}
+        edit={isEdit}
         isVisible={showModal}
         onClose={closeModal}
-        user={null}
+        user={selectedUser}
       />
     </>
   );

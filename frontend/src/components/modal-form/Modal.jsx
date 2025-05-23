@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../hooks/AuthProvider";
 import { registerUser } from "../../services/authService";
 
-const Modal = ({ edit = true, isVisible, onClose, user }) => {
+const Modal = ({ edit, isVisible, onClose, user }) => {
   const { token } = useContext(AuthContext);
   const { updateData } = useUpdateData();
   const initialValues = getInitialUserValues(edit, user);

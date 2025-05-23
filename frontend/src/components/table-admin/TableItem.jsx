@@ -1,21 +1,7 @@
-import Modal from "../modal-form/Modal";
-import { useModal } from "../../hooks/useModal";
-import { useState } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import { TiUserDeleteOutline } from "react-icons/ti";
 
-
-const TableItem = ({ columns, items }) => {
-  const { openModal, showModal, closeModal } = useModal();
-  const [selectedUser, setSelectedUser] = useState(null);
-
-  const handleOpenModal = (user) => {
-    setSelectedUser(user);
-    openModal();
-  };
-
-
-  
+const TableItem = ({ columns, items, onEdit }) => {
   return (
     <div>
       <table className="w-full text-sm text-left text-gray-500">
@@ -39,21 +25,13 @@ const TableItem = ({ columns, items }) => {
                 {item.role.nombre}
               </td>
               <td className="gap-8 flex justify-items-start px-6 py-4">
-                <button className="cursor-pointer" onClick={() => handleOpenModal(item)}><FaUserEdit size={23}/></button>
+                <button className="cursor-pointer" onClick={() => onEdit(item)}><FaUserEdit size={23}/></button>
                 <button ><TiUserDeleteOutline size={26}/></button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {showModal && selectedUser && (
-        <Modal
-          edit={true}
-          isVisible={showModal}
-          onClose={closeModal}
-          user={selectedUser}
-        />
-      )}
     </div>
   );
 };

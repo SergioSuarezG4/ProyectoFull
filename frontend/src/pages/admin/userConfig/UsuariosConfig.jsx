@@ -4,7 +4,7 @@ import { CiUser } from "react-icons/ci";
 import { RiUserSettingsLine } from "react-icons/ri";
 
 //Card que llama al modal para agregar un nuevo usuario.
-export const getAddUserCard = (openModal) => ({
+export const getAddUserCard = (handleCreateUser) => ({
   name: "Agregar Usuario",
   descripcion: "Registra un nuevo usuario en el sistema.",
   icon: () => (
@@ -12,7 +12,7 @@ export const getAddUserCard = (openModal) => ({
       size={65}
       color="gray"
       className="text-2xl cursor-pointer hover:text-blue-500"
-      onClick={() => openModal()}
+      onClick={() => handleCreateUser()}
     />
   ),
 });

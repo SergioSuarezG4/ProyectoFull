@@ -7,6 +7,8 @@ import {
   FiUserCheck,
   FiCalendar,
 } from "react-icons/fi";
+import { GoCodespaces } from "react-icons/go";
+import { FaAddressBook } from "react-icons/fa";
 
 export const rolMap = {
   1: "admin",
@@ -25,7 +27,8 @@ export const menuItems = {
   admin: [
     { name: "Dashboard", path: "/admin/dashboard", icon: FiHome },
     { name: "Usuarios", path: "/admin/users", icon: FiUsers },
-    { name: "Spaces", path: "/admin/spaces", icon: FiClipboard },
+    { name: "Espacios", path: "/admin/spaces", icon: GoCodespaces },
+    { name: "Reservas", path: "/admin/bookings", icon:FaAddressBook  }
   ],
   recepcionista: [
     { name: "Check-in", path: "/recepcionista/checkin", icon: FiUserCheck },
