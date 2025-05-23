@@ -13,6 +13,9 @@ const TableItem = ({ columns, items }) => {
     setSelectedUser(user);
     openModal();
   };
+
+
+  
   return (
     <div>
       <table className="w-full text-sm text-left text-gray-500">
