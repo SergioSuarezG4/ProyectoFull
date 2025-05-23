@@ -13,7 +13,7 @@ const columns = [
 ];
 
 const UsuarioAdmin = () => {
-  const { data, error } = useFetchData({ endpoint: "users/" });
+  const { data, error } = useFetchData({ endpoint: "users" });
   const { openModal, showModal, closeModal } = useModal();
   
   const Users = {
@@ -39,7 +39,7 @@ const UsuarioAdmin = () => {
           <div>
             <CardHome menuItems={Users} color="gray" />
           </div>
-          <div className="h-auto flex flex-col justify-end px-6 mt-8 m-20">
+          <div className="h-auto flex flex-col justify-end px-6 mt-8 ml-20">
             <TableItem columns={columns} items={data} />
           </div>
         </>

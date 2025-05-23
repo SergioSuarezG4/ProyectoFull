@@ -12,7 +12,7 @@ const useFetchData = ({ endpoint }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/${endpoint}`, {
+        const response = await axios.get(`${API_URL}/${endpoint}/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
