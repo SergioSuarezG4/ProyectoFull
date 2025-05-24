@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { getInitialSpacesValues } from "../../../helpers/useModalFormHelper";
 import useUpdateData from '../../../hooks/useUpdateData';
 
-export default function FormSpaces({isEdit, space, onClose}) {
+const FormSpaces = ({isEdit, space, onClose}) => {
 
     const { createData } = useCreateData();
     const {updateData} = useUpdateData();
@@ -18,8 +18,10 @@ export default function FormSpaces({isEdit, space, onClose}) {
         if(isEdit){
           console.log(values.id)
           await updateData({data:values, endpoint:"spaces", tokenUser: token})
+          alert("Espacio actualizado correctamente");
         }else{
           await createData({data: values, endpoint:"spaces", tokenUser: token})
+          alert("Espacio creado correctamente");
         }
         resetForm()
         onClose()
@@ -65,3 +67,4 @@ export default function FormSpaces({isEdit, space, onClose}) {
     </div>
   );
 }
+export default FormSpaces;

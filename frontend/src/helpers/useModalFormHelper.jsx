@@ -1,3 +1,4 @@
+//Inicial values de los usuarios.
 export const getInitialUserValues = (edit, user = {}) => {
   if (edit) {
     return {
@@ -16,7 +17,7 @@ export const getInitialUserValues = (edit, user = {}) => {
     rol_id: 1,
   };
 };
-
+//Inicial values de los espacios.
 export const getInitialSpacesValues = (edit, space = {}) => {
   if (edit) {
     return {
@@ -33,5 +34,28 @@ export const getInitialSpacesValues = (edit, space = {}) => {
     descripcion: "",
     capacidad: "",
     precio_por_hora: "",
+  };
+};
+
+export const getInitialBookingsValues = (edit, booking = {}, usuario) => {
+  if (edit) {
+    return {
+      id: booking?.ID || "",
+      user_id: booking?.user_id || "",
+      space_id: booking?.space_id || "",
+      fecha: booking?.fecha?.split("T")[0] || "", // formato YYYY-MM-DD
+      hora_inicio: booking?.hora_inicio || "",
+      hora_fin: booking?.hora_fin || "",
+      estado: booking?.estado || "Pendiente",
+    };
+  }
+
+  return {
+    user_id: usuario?.id,
+    space_id: 1,
+    fecha: "",
+    hora_inicio: "",
+    hora_fin: "",
+    estado: "Pendiente",
   };
 };

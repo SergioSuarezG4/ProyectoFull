@@ -26,12 +26,12 @@ const CardSpaces = ({ space, onEdit }) => {
         <div className="flex justify-around mt-4">
           <button
             onClick={onEdit}
-            className="bg-gray-500 px-4 py-2 cursor-pointer rounded hover:bg-gray-600"
+            className="bg-gray-400 p-2 cursor-pointer rounded-lg hover:bg-gray-300"
           >
             <FiEdit size={20} />
           </button>
-          <button className="bg-red-400 px-4 py-2 cursor-pointer rounded hover:bg-red-500">
-            <MdDeleteOutline size={25} />
+          <button className="bg-red-400 p-2 cursor-pointer rounded-lg hover:bg-red-300">
+            <MdDeleteOutline size={20} />
           </button>
         </div>
       </div>

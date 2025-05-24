@@ -1,6 +1,6 @@
 // src/pages/HomeCoworking.jsx
 import React from "react";
-import CardHome from "../../components/card-home/CardHome";
+import CardHome from "../../components/home/card-home/CardHome";
 import { MdChair, MdCoPresent  } from "react-icons/md";
 import { GiDesk } from "react-icons/gi";
 import { SiGoogleclassroom } from "react-icons/si";

@@ -2,18 +2,22 @@ import { useState } from "react";
 import { Formik } from "formik";
 import { registerUser } from "../../services/authService";
 import { FiUserPlus } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+
 
 
 const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();  // <-- Inicializas navigate
 
   const handleFormSubmit = async (values, { resetForm }) => {
     setErrorMessage("");
 
     try {
       const data = await registerUser(values);
-      console.log("Usuario registrado correctamente:", data);
+      alert("Usuario registrado correctamente",data);
       resetForm();
+      navigate("/login");
     } catch (error) {
       setErrorMessage(error.message || "Error al registrar usuario");
     }

@@ -4,26 +4,29 @@ import { loginUser } from "../../services/authService";
 import { FiUser} from "react-icons/fi";
 import { useContext } from "react";
 import { AuthContext } from "../../hooks/AuthProvider";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
 
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();  // <-- Inicializas navigate
 
   const handleFormSubmit = async (values, { resetForm }) => {
     if (values.email === "" || values.password === "") {
       setErrorMessage("Por favor, complete todos los campos.");
       return;
     }
-
     setErrorMessage("");
-
     try {
       const data = await loginUser(values);
-      console.log("Usuario autenticado correctamente.", data);
+      alert("Usuario autenticado correctamente.", data);
 
       login(data.user, data.token);
       resetForm();
+
+      
+      navigate("/")
     } catch (error) {
 
       setErrorMessage(error.message || "Error al loguear usuario");

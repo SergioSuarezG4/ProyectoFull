@@ -9,6 +9,7 @@ import {
 } from "react-icons/fi";
 import { GoCodespaces } from "react-icons/go";
 import { FaAddressBook } from "react-icons/fa";
+import { HiLogout } from "react-icons/hi";
 
 export const rolMap = {
   1: "admin",
@@ -25,17 +26,14 @@ export const menuItems = {
     { name: "Registrarse", path: "/register", icon: FiUserPlus },
   ],
   admin: [
-    { name: "Dashboard", path: "/admin/dashboard", icon: FiHome },
     { name: "Usuarios", path: "/admin/users", icon: FiUsers },
     { name: "Espacios", path: "/admin/spaces", icon: GoCodespaces },
-    { name: "Reservas", path: "/admin/bookings", icon:FaAddressBook  }
-  ],
-  recepcionista: [
-    { name: "Check-in", path: "/recepcionista/checkin", icon: FiUserCheck },
-    { name: "Check-out", path: "/recepcionista/checkout", icon: FiUserCheck },
+    { name: "Reservas", path: "/admin/bookings", icon:FaAddressBook  },
+    { name: "Cerrar Sesion", path: "/logout", icon: HiLogout  },
   ],
   cliente: [
     { name: "Mis Reservas", path: "/cliente/reservas", icon: FiCalendar },
     { name: "Mi Perfil", path: "/cliente/perfil", icon: FiUsers },
+    { name: "Cerrar Sesion", path: "/logout", icon: HiLogout  },
   ],
 };

@@ -1,6 +1,6 @@
 import CardSpaces from "../../../components/spaces/card-spaces/CardSpaces";
 import FormSpaces from "../../../components/spaces/form-spaces/FormSpaces";
-import ModalSpaces from "../../../components/spaces/modal-spaces/ModalSpaces";
+import Modal from "../../../components/modal/Modal";
 import useFetchData from "../../../hooks/useFetchData";
 import { useModal } from "../../../hooks/useModal";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function SpacesAdmin() {
   const { openModal, showModal, closeModal } = useModal();
 
-  const { data } = useFetchData({ endpoint: "spaces" });
+  const { data: spaces } = useFetchData({ endpoint: "spaces" });
 
   const [selectedSpace, setSelectedSpace] = useState(null);
 
@@ -34,10 +34,10 @@ export default function SpacesAdmin() {
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {data && data.length > 0 ? (
-          data.map((space, index) => (
+        {spaces && spaces.length > 0 ? (
+          spaces.map((space) => (
             <CardSpaces 
-            key={space.id || index}
+            key={space.ID}
             space={space}
             onEdit={() => handleEdit(space)} />
           ))
@@ -46,9 +46,9 @@ export default function SpacesAdmin() {
             No hay espacios disponibles.
           </p>
         )}
-        <ModalSpaces isVisible={showModal} onClose={closeModal}>
+        <Modal isVisible={showModal} onClose={closeModal}>
           <FormSpaces isEdit={!!selectedSpace} space={selectedSpace} onClose={closeModal} />
-        </ModalSpaces>
+        </Modal>
       </div>
     </div>
   );
