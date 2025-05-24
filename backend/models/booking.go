@@ -14,4 +14,6 @@ type Booking struct {
 	HoraInicio string    `json:"hora_inicio"`
 	HoraFin    string    `json:"hora_fin"`
 	Estado     string    `json:"estado"` // "pendiente", "confirmada","cancelada"
+	User       User      `json:"user" gorm:"foreignKey:UserID"`
+	Space      Space     `json:"space" gorm:"foreignKey:SpaceID"`
 }
