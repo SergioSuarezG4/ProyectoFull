@@ -64,6 +64,7 @@ func Register(c *gin.Context) {
 }
 
 // Iniciar sesión
+// Iniciar sesión
 func Login(c *gin.Context) {
 	var input LoginInput
 	var user models.User
@@ -74,8 +75,8 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	// Buscar usuario por email
-	if err := config.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
+	// Buscar usuario por email con Role precargado
+	if err := config.DB.Preload("Role").Where("email = ?", input.Email).First(&user).Error; err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Credenciales incorrectas"})
 		return
 	}
@@ -93,24 +94,12 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	userResponse := struct {
-		ID     uint   `json:"id"`
-		Nombre string `json:"nombre"`
-		Email  string `json:"email"`
-		RolID  uint   `json:"rol_id"`
-	}{
-		ID:     user.ID,
-		Nombre: user.Nombre,
-		Email:  user.Email,
-		RolID:  user.RolID,
-	}
-
 	CreateActivityLog(user.ID, "inicio de sesión", "Usuario inició sesión")
 
-	// Responder con token y usuario.
+	// Responder con token y usuario completo (incluyendo Role)
 	c.JSON(http.StatusOK, gin.H{
 		"token": token,
-		"user":  userResponse,
+		"user":  user,
 	})
 }
 
