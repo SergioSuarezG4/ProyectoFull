@@ -35,16 +35,6 @@ func CreateUser(c *gin.Context) {
 	// }
 	// user.Password = hashedPassword
 
-	// var existingUser models.User
-	// err = config.DB.Where("email = ?", user.Email).First(&existingUser).Error
-	// if err == nil {
-	// 	c.JSON(http.StatusConflict, gin.H{"error": "El correo ya se encuentra registrado."})
-	// 	return
-	// } else if err != gorm.ErrRecordNotFound {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al verificar el usuario"})
-	// 	return
-	// }
-
 	if err := config.DB.Create(&user).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error al registrar el usuario"})
 		return

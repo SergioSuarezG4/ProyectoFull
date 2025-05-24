@@ -30,6 +30,7 @@ const TableItem = ({ columns, items, onEdit }) => {
               </td>
               <td className="px-6 py-4">
                 {item.estado}
+                
               </td>
             </tr>
           ))}

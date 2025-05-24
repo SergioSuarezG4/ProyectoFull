@@ -4,8 +4,6 @@ import FormBookings from "../../../components/bookings/form-bookings/FormBooking
 import { useState } from "react";
 import TableItem from "../../../components/users/table-admin-users/TableItem";
 import useFetchData from "../../../hooks/useFetchData";
-
-
 const columns = [
     { label: "Usuario" },
     { label: "Espacio" },
@@ -15,24 +13,20 @@ const columns = [
 ];
 
 const BookingsAdmin = () => {
-
   const { openModal, showModal, closeModal } = useModal();
     const { data: bookings } = useFetchData({ endpoint: "bookings" });
 
-  
   const [selectedBooking, setSelectedBooking] = useState(null);
-
+  
   const handleCreateBooking = () => {
     console.log(bookings)
     setSelectedBooking(null)
     openModal();
   }
-
   const handleEditBooking = (booking) => {
     setSelectedBooking(booking)
     openModal();
   }
-
   return (
     <div className="ml-[120px]">
       <div className="flex justify-between items-center p-6">
