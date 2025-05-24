@@ -15,18 +15,21 @@ const TableItem = ({ columns, items, onEdit }) => {
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => (
-            <tr key={item.id} className="border-b">
+          {items.map((item, index) => (
+            <tr key={item.id || index} className="border-b">
               <td className="px-6 py-4 font-medium text-gray-900">
-                {item.nombre}
+                {item.nombre || item.user_id}
               </td>
-              <td className="px-6 py-4">{item.email}</td>
+              <td className="px-6 py-4">{item.email || item.space_id}</td>
               <td className="px-6 py-4">
-                {item.role.nombre}
+                {item.role?.nombre || item.fecha}
               </td>
               <td className="gap-8 flex justify-items-start px-6 py-4">
                 <button className="cursor-pointer" onClick={() => onEdit(item)}><FaUserEdit size={23}/></button>
                 <button ><TiUserDeleteOutline size={26}/></button>
+              </td>
+              <td className="px-6 py-4">
+                {item.estado}
               </td>
             </tr>
           ))}
