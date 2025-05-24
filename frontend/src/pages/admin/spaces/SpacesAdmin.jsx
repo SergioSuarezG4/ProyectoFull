@@ -22,7 +22,7 @@ export default function SpacesAdmin() {
     openModal();
   };
   return (
-    <div className="ml-[240px] p-6 min-h-screen bg-gray-50">
+    <div className="ml-[240px] p-6 min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Administrar Espacios</h1>
         <button

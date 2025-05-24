@@ -10,6 +10,7 @@ const columns = [
     { label: "Espacio" },
     { label: "Fecha" },
     { label: "Accion" },
+    { label: "Horario"},
     { label: "Estado"},
 ];
 
