@@ -96,10 +96,19 @@ func Login(c *gin.Context) {
 
 	CreateActivityLog(user.ID, "inicio de sesión", "Usuario inició sesión")
 
+	userResponse := models.UserResponse{
+		ID:            user.ID,
+		Nombre:        user.Nombre,
+		Email:         user.Email,
+		RolID:         user.RolID,
+		FechaRegistro: user.FechaRegistro,
+		Role:          user.Role,
+	}
+
 	// Responder con token y usuario completo (incluyendo Role)
 	c.JSON(http.StatusOK, gin.H{
 		"token": token,
-		"user":  user,
+		"user":  userResponse,
 	})
 }
 
