@@ -1,3 +1,4 @@
+//Formato de fecha para envio al back
 const formDate = (dateString) => {
   
   // Fecha seleccionada (solo año, mes, día)
@@ -21,4 +22,30 @@ const formDate = (dateString) => {
   return `${localISO}-05:00`;
 };
 
-export default formDate;
+//Formato de horas am y pm.
+const formatoHora = (hora) => {
+  const [h, m] = hora.split(":");
+  const date = new Date();
+  date.setHours(+h, +m);
+  return date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
+
+//Fecha del back a fecha normal.
+const formatoFechaLarga = (fechaString) => {
+  const fecha = new Date(fechaString);
+
+  const opciones = {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+
+  // Usamos 'es-ES' para que devuelva en español
+  return fecha.toLocaleDateString("es-ES", opciones);
+};
+
+export { formDate, formatoHora, formatoFechaLarga};

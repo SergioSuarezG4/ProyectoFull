@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { getInitialBookingsValues } from "../../../helpers/useModalFormHelper";
 import useUpdateData from "../../../hooks/useUpdateData";
 import useFetchData from "../../../hooks/useFetchData";
-import formatDate from "../../../helpers/formDate";
+import { formDate } from "../../../helpers/formDate";
 
 const FormBookings = ({ isEdit = false, booking, onClose }) => {
   const { createData } = useCreateData();
@@ -21,7 +21,7 @@ const FormBookings = ({ isEdit = false, booking, onClose }) => {
       ...values,
       user_id: Number(values.user_id),
       space_id: Number(values.space_id),
-      fecha: formatDate(values.fecha),
+      fecha: formDate(values.fecha),
     };
     
     console.log("Spaces: ", payload);
