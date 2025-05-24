@@ -6,10 +6,11 @@ import TableItem from "../../../components/users/table-admin-users/TableItem";
 import useFetchData from "../../../hooks/useFetchData";
 const columns = [
     { label: "Usuario" },
+    { label: "Email" },
     { label: "Espacio" },
     { label: "Fecha" },
-    { label: "Estado" },
-    { label: "Accion"},
+    { label: "Accion" },
+    { label: "Estado"},
 ];
 
 const BookingsAdmin = () => {

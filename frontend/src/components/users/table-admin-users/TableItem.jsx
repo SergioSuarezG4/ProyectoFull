@@ -18,9 +18,10 @@ const TableItem = ({ columns, items, onEdit }) => {
           {items.map((item, index) => (
             <tr key={item.id || index} className="border-b">
               <td className="px-6 py-4 font-medium text-gray-900">
-                {item.nombre || item.user_id}
+                {item.nombre || item.user?.nombre}
               </td>
-              <td className="px-6 py-4">{item.email || item.space_id}</td>
+              <td className="px-6 py-4">{item.user.email}</td>
+              <td className="px-6 py-4">{item.email || item.space?.nombre}</td>
               <td className="px-6 py-4">
                 {item.role?.nombre || item.fecha}
               </td>
