@@ -17,7 +17,7 @@ export const getInitialUserValues = (edit, user = {}) => {
     rol_id: 1,
   };
 };
-//Inicial values de los espacios.
+//Inicial values de los espacios en reservas.
 export const getInitialSpacesValues = (edit, space = {}) => {
   if (edit) {
     return {
