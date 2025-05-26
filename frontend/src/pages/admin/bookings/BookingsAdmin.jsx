@@ -2,16 +2,16 @@ import { useModal } from "../../../hooks/useModal";
 import Modal from "../../../components/modal/Modal";
 import FormBookings from "../../../components/bookings/form-bookings/FormBookings";
 import { useState } from "react";
-import TableItem from "../../../components/users/table-admin-users/TableItem";
+import TableItemBookings from "../../../components/bookings/table-bookings/TableItemBookings";
 import useFetchData from "../../../hooks/useFetchData";
 const columns = [
     { label: "Usuario" },
     { label: "Email" },
     { label: "Espacio" },
     { label: "Fecha" },
-    { label: "Accion" },
-    { label: "Horario"},
+    { label: "Horario" },
     { label: "Estado"},
+    { label: "Accion"},
 ];
 
 const BookingsAdmin = () => {
@@ -31,14 +31,14 @@ const BookingsAdmin = () => {
   }
   return (
     <div className="ml-[120px]">
-      <div className="flex justify-between items-center p-6">
+      <div className="flex justify-between items-center p-6 mb-3">
         <p className="text-2xl font-bold">Bookings</p>
         <button onClick={handleCreateBooking} className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
           Crear Reserva
         </button>
       </div>
       <div>
-        <TableItem columns={columns} items={bookings} onEdit={handleEditBooking}/>
+        <TableItemBookings columns={columns} items={bookings} onEdit={handleEditBooking}/>
       </div>
       <Modal isVisible={showModal} onClose={closeModal}>
         <FormBookings

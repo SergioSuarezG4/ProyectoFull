@@ -32,7 +32,6 @@ export default function SpacesAdmin() {
           Crear Espacio
         </button>
       </div>
-
       <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {spaces && spaces.length > 0 ? (
           spaces.map((space) => (

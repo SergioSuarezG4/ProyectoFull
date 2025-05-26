@@ -1,7 +1,8 @@
 import { FaUserEdit } from "react-icons/fa";
 import { TiUserDeleteOutline } from "react-icons/ti";
+import { formatoHora, formatoFechaLarga } from "../../../helpers/formDate";
 
-const TableItem = ({ columns, items, onEdit }) => {
+const TableItemBookings = ({ columns, items, onEdit }) => {
   return (
     <div>
       <table className="w-full text-sm text-left text-gray-500">
@@ -18,13 +19,22 @@ const TableItem = ({ columns, items, onEdit }) => {
           {items.map((item, index) => (
             <tr key={item.id || index} className="border-b">
               <td className="px-6 py-4 font-medium text-gray-900">
-                {item.nombre}
+                {item.user?.nombre}
               </td>
-              <td className="px-6 py-4">{item.email}</td>
+              <td className="px-6 py-4">{item.user?.email}</td>
               <td className="px-6 py-4">
-                {item.role?.nombre}
+                {item.space?.nombre}
               </td>
-              <td className="gap-8 flex justify-items-start px-6 py-4">
+              <td className="px-6 py-4">
+                {formatoFechaLarga(item.fecha)}
+              </td>
+              <td className="px-6 py-4">
+                {formatoHora(item.hora_inicio)} - {formatoHora(item.hora_fin)}
+              </td>
+              <td className="px-6 py-4">
+                {item.estado}
+              </td>
+               <td className="gap-8 flex justify-items-start px-6 py-4">
                 <button className="cursor-pointer" onClick={() => onEdit(item)}><FaUserEdit size={23}/></button>
                 <button ><TiUserDeleteOutline size={26}/></button>
               </td>
@@ -36,4 +46,4 @@ const TableItem = ({ columns, items, onEdit }) => {
   );
 };
 
-export default TableItem;
+export default TableItemBookings;
