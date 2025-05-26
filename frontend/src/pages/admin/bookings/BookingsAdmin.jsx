@@ -15,8 +15,8 @@ const columns = [
 ];
 
 const BookingsAdmin = () => {
-  const { openModal, showModal, closeModal } = useModal();
-    const { data: bookings } = useFetchData({ endpoint: "bookings" });
+    const { openModal, showModal, closeModal } = useModal();
+    const { data: bookings, refetch} = useFetchData({ endpoint: "bookings" });
 
   const [selectedBooking, setSelectedBooking] = useState(null);
   
@@ -29,6 +29,10 @@ const BookingsAdmin = () => {
     setSelectedBooking(booking)
     openModal();
   }
+  const handleCloseModal = () => {
+    closeModal();
+    refetch();    
+  };
   return (
     <div className="ml-[120px]">
       <div className="flex justify-between items-center p-6 mb-3">
@@ -38,13 +42,13 @@ const BookingsAdmin = () => {
         </button>
       </div>
       <div>
-        <TableItemBookings columns={columns} items={bookings} onEdit={handleEditBooking}/>
+        <TableItemBookings columns={columns} items={bookings} onEdit={handleEditBooking} isCliente={false}/>
       </div>
-      <Modal isVisible={showModal} onClose={closeModal}>
+      <Modal isVisible={showModal} onClose={handleCloseModal}>
         <FormBookings
           isEdit={!!selectedBooking}
           booking={selectedBooking}
-          onClose={closeModal}
+          onClose={handleCloseModal}
         />
       </Modal>
     </div>

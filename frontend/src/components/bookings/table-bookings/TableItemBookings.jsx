@@ -2,7 +2,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { TiUserDeleteOutline } from "react-icons/ti";
 import { formatoHora, formatoFechaLarga } from "../../../helpers/formDate";
 
-const TableItemBookings = ({ columns, items, onEdit }) => {
+const TableItemBookings = ({ columns, items, onEdit, isCliente }) => {
   return (
     <div>
       <table className="w-full text-sm text-left text-gray-500">
@@ -34,10 +34,16 @@ const TableItemBookings = ({ columns, items, onEdit }) => {
               <td className="px-6 py-4">
                 {item.estado}
               </td>
-               <td className="gap-8 flex justify-items-start px-6 py-4">
+              {isCliente ? (
+                <td className="gap-8 flex justify-items-start px-12 py-4">
+                  <button ><TiUserDeleteOutline size={26}/>Cancelar</button>
+                </td>
+              ) : (
+              <td className="gap-8 flex justify-items-start px-6 py-4">
                 <button className="cursor-pointer" onClick={() => onEdit(item)}><FaUserEdit size={23}/></button>
                 <button ><TiUserDeleteOutline size={26}/></button>
               </td>
+              )}
             </tr>
           ))}
         </tbody>

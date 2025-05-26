@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function SpacesAdmin() {
   const { openModal, showModal, closeModal } = useModal();
 
-  const { data: spaces } = useFetchData({ endpoint: "spaces" });
+  const { data: spaces, refetch } = useFetchData({ endpoint: "spaces" });
 
   const [selectedSpace, setSelectedSpace] = useState(null);
 
@@ -21,6 +21,11 @@ export default function SpacesAdmin() {
     setSelectedSpace(space);
     openModal();
   };
+
+  const handleCloseModal = () => {
+    closeModal()
+    refetch()
+  }
   return (
     <div className="ml-[240px] p-6 min-h-screen">
       <div className="flex justify-between items-center mb-6">
@@ -45,8 +50,8 @@ export default function SpacesAdmin() {
             No hay espacios disponibles.
           </p>
         )}
-        <Modal isVisible={showModal} onClose={closeModal}>
-          <FormSpaces isEdit={!!selectedSpace} space={selectedSpace} onClose={closeModal} />
+        <Modal isVisible={showModal} onClose={handleCloseModal}>
+          <FormSpaces isEdit={!!selectedSpace} space={selectedSpace} onClose={handleCloseModal} />
         </Modal>
       </div>
     </div>

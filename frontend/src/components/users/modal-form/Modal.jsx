@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../hooks/AuthProvider";
 import { registerUser } from "../../../services/authService";
 
-const Modal = ({ edit, isVisible, onClose, user }) => {
+const Modal = ({ edit = false , isVisible, onClose, user }) => {
   const { token } = useContext(AuthContext);
   const { updateData } = useUpdateData();
   const initialValues = getInitialUserValues(edit, user);
@@ -20,7 +20,6 @@ const Modal = ({ edit, isVisible, onClose, user }) => {
         await registerUser(values);
         alert("Usuario creado correctamente");
       }
-
       onClose();
       resetForm();
     } catch (error) {

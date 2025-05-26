@@ -7,7 +7,8 @@ import useUpdateData from "../../../hooks/useUpdateData";
 import useFetchData from "../../../hooks/useFetchData";
 import { formDate } from "../../../helpers/formDate";
 
-const FormBookings = ({ isEdit = false, booking, onClose }) => {
+const FormBookings = ({isEdit = false, booking = {}, onClose, isCliente = false}) => {
+
   const { createData } = useCreateData();
   const { updateData } = useUpdateData();
   const { token, usuario } = useContext(AuthContext);
@@ -23,16 +24,14 @@ const FormBookings = ({ isEdit = false, booking, onClose }) => {
       space_id: Number(values.space_id),
       fecha: formDate(values.fecha),
     };
-    
-    console.log("Spaces: ", payload);
+
     try {
       if (isEdit) {
-        await updateData({data: payload, endpoint: "bookings", tokenUser: token});
-        alert("Reserva actualizada correctamente")
+        await updateData({data: payload, endpoint: "bookings", tokenUser: token,});
+        alert("Reserva actualizada correctamente");
       } else {
-        await createData({data: payload,endpoint: "bookings", tokenUser: token});
-        alert("Reserva agregada correctamente")
-
+        await createData({data: payload, endpoint: "bookings", tokenUser: token,});
+        alert("Reserva agregada correctamente");
       }
       resetForm();
       onClose();
@@ -49,19 +48,35 @@ const FormBookings = ({ isEdit = false, booking, onClose }) => {
             <h2 className="text-xl font-bold mb-4 text-center">
               {isEdit ? "Editar Reserva" : "Crear Reserva"}
             </h2>
-            <label className="text-sm font-medium">Usuario</label>
             <Field type="hidden" name="id" />
-            <Field
-              name="user_id"
-              as="select"
-              className="w-full border rounded-md p-2 text-sm"
-            >
-              {users.map((user) => (
-                <option key={user.id} value={user.id}>
-                  {user.nombre}
-                </option>
-              ))}
-            </Field>
+            {isCliente ? (
+              <>
+                <div className="mb-2">
+                  <label className="text-sm font-medium">Usuario</label>
+                  <input
+                    type="text"
+                    value={usuario.nombre}
+                    disabled
+                    className="w-full border rounded-md p-2 text-sm bg-gray-100 text-gray-700"
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <label className="text-sm font-medium">Usuario</label>
+                <Field
+                  name="user_id"
+                  as="select"
+                  className="w-full border rounded-md p-2 text-sm"
+                >
+                  {users.map((user) => (
+                    <option key={user.id} value={user.id}>
+                      {user.nombre}
+                    </option>
+                  ))}
+                </Field>
+              </>
+            )}
           </div>
 
           <div className="space-y-1">
@@ -116,7 +131,7 @@ const FormBookings = ({ isEdit = false, booking, onClose }) => {
             >
               <option value="Confirmado">Confirmado</option>
               <option value="Pendiente">Pendiente</option>
-              <option value="Cancelado.">Cancelado</option>
+              <option value="Cancelado">Cancelado</option>
             </Field>
           </div>
 
@@ -125,7 +140,7 @@ const FormBookings = ({ isEdit = false, booking, onClose }) => {
               type="submit"
               className="px-4 py-2 text-sm text-white bg-gray-600 hover:bg-gray-700 rounded-md"
             >
-              Crear
+              {isEdit ? "Guardar Cambios" : "Agregar Reserva"}
             </button>
           </div>
         </Form>

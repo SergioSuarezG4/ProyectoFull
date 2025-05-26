@@ -4,7 +4,8 @@ import useFetchData from "../../../hooks/useFetchData";
 import { useModal } from "../../../hooks/useModal";
 import Modal from "../../../components/users/modal-form/Modal";
 import { getAddUserCard, userTypeCards } from "./userConfig/UsuariosConfig";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../hooks/AuthProvider";
 
 const columns = [
     { label: "Nombre" },
@@ -14,8 +15,9 @@ const columns = [
 ];
 
 const UsuarioAdmin = () => {
-  const { data: users, error } = useFetchData({ endpoint: "users" });  
+  const { data: users, error, refetch } = useFetchData({ endpoint: "users" });  
   const { openModal, showModal, closeModal } = useModal();
+  const {usuario} = useContext(AuthContext)
   
   const [isEdit, setIsEdit] = useState(false);
   const [selectedUser, setSeletedUser] = useState(null)
@@ -31,6 +33,11 @@ const UsuarioAdmin = () => {
     setIsEdit(true)
     openModal();
   };
+
+  const handleCloseModal = () => {
+    closeModal()
+    refetch()
+  }
 
   const Users = {
     spaces: [getAddUserCard(handleCreateUser), ...userTypeCards],
@@ -49,7 +56,7 @@ const UsuarioAdmin = () => {
       ) : (
         <>
           <div className="ml-[120px] p-6">
-            <p className="text-2xl font-bold ">Users</p>
+            <p className="text-2xl font-bold ">Bievenido {usuario.nombre}!</p>
           </div>
           <div>
             <CardHome menuItems={Users} color="gray" />
@@ -62,7 +69,7 @@ const UsuarioAdmin = () => {
       <Modal
         edit={isEdit}
         isVisible={showModal}
-        onClose={closeModal}
+        onClose={handleCloseModal}
         user={selectedUser}
       />
     </>

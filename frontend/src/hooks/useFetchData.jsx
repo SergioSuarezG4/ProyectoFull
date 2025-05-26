@@ -9,7 +9,6 @@ const useFetchData = ({ endpoint }) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${API_URL}/${endpoint}/`, {
@@ -26,10 +25,12 @@ const useFetchData = ({ endpoint }) => {
       }
     };
 
-    fetchData();
-  }, [endpoint, token]);
+    useEffect(() =>{
+      fetchData()
+    }, [endpoint, token])
+    
 
-  return { data, error };
+  return { data, error, refetch: fetchData  };
 };
 
 export default useFetchData;
