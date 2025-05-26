@@ -5,6 +5,7 @@ import FormBookings from "../../../components/bookings/form-bookings/FormBooking
 import { useModal } from "../../../hooks/useModal";
 import { useContext } from "react";
 import { AuthContext } from "../../../hooks/AuthProvider";
+import useDeleteData from "../../../hooks/useDeleteData";
 
 const columns = [
     { label: "Usuario" },
@@ -20,7 +21,8 @@ const BookingsClient = () => {
     
     const { openModal, showModal, closeModal } = useModal();
     const { data: bookings, refetch } = useFetchData({ endpoint: "bookings" });
-    const {usuario} = useContext(AuthContext)
+    const {usuario, token} = useContext(AuthContext)
+    const {deleteData} = useDeleteData()
 
     
     const filterBookings = bookings.filter((booking) => booking.user_id === usuario.id)
@@ -29,6 +31,17 @@ const BookingsClient = () => {
         openModal();
     }
 
+    const handleDelete = async (booking) => {
+        if (!window.confirm(`¿Seguro quieres eliminar la numero: ${booking.ID}?`)) return;
+        try {
+            const response = await deleteData({data: booking, endpoint: "bookings", tokenUser: token});
+            alert(response.message);
+            refetch();
+        } catch (err) {
+            alert("Error al eliminar la reserva: " + err.message);
+        }
+    };
+    
     const handleCloseModal = () => {
         closeModal()
         refetch()
@@ -42,7 +55,11 @@ const BookingsClient = () => {
                 </button>
             </div>
             <div>
-                <TableItemBookings columns={columns} items={filterBookings} isCliente={true}/>
+                {filterBookings.length > 0 ? (
+                    <TableItemBookings columns={columns} items={filterBookings} isCliente={true} onDelete={handleDelete}/>
+                ) : (
+                    <p className="text-center text-gray-500 py-8">No hay reservas por mostrar.</p>
+                )}
             </div>
             <Modal isVisible={showModal} onClose={handleCloseModal}>
                 <FormBookings

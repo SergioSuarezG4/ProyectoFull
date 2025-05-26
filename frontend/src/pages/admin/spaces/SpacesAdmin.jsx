@@ -3,13 +3,16 @@ import FormSpaces from "../../../components/spaces/form-spaces/FormSpaces";
 import Modal from "../../../components/modal/Modal";
 import useFetchData from "../../../hooks/useFetchData";
 import { useModal } from "../../../hooks/useModal";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import useDeleteData from "../../../hooks/useDeleteData";
+import { AuthContext } from "../../../hooks/AuthProvider";
 
 export default function SpacesAdmin() {
+
   const { openModal, showModal, closeModal } = useModal();
-
+  const  {deleteData} = useDeleteData();
+  const {token} = useContext(AuthContext)
   const { data: spaces, refetch } = useFetchData({ endpoint: "spaces" });
-
   const [selectedSpace, setSelectedSpace] = useState(null);
 
   const handleCreate = () => {
@@ -20,6 +23,18 @@ export default function SpacesAdmin() {
   const handleEdit = (space) => {
     setSelectedSpace(space);
     openModal();
+  };
+
+  const handleDelete = async (space) => {
+    console.log(space.ID)
+    if (!window.confirm(`¿Seguro quieres eliminar el espacio : ${space.nombre}?`)) return;
+    try {
+      const response = await deleteData({data: space, endpoint: "spaces", tokenUser: token});
+      alert(response.message);
+      refetch();
+    } catch (err) {
+      alert("Error al eliminar el espacio: " + err.message);
+    }
   };
 
   const handleCloseModal = () => {
@@ -43,7 +58,8 @@ export default function SpacesAdmin() {
             <CardSpaces 
             key={space.ID}
             space={space}
-            onEdit={() => handleEdit(space)} />
+            onEdit={() => handleEdit(space)}
+            onDelete={() => handleDelete(space)} />
           ))
         ) : (
           <p className="text-center col-span-full text-gray-500">

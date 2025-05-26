@@ -1,7 +1,7 @@
 import { FaUserEdit } from "react-icons/fa";
 import { TiUserDeleteOutline } from "react-icons/ti";
 
-const TableItem = ({ columns, items, onEdit }) => {
+const TableItem = ({ columns, items, onEdit, onDelete}) => {
   return (
     <div>
       <table className="w-full text-sm text-left text-gray-500">
@@ -26,7 +26,7 @@ const TableItem = ({ columns, items, onEdit }) => {
               </td>
               <td className="gap-8 flex justify-items-start px-6 py-4">
                 <button className="cursor-pointer" onClick={() => onEdit(item)}><FaUserEdit size={23}/></button>
-                <button ><TiUserDeleteOutline size={26}/></button>
+                <button className="cursor-pointer"onClick={() => onDelete(item)}><TiUserDeleteOutline size={26}/></button>
               </td>
             </tr>
           ))}

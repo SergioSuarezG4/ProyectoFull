@@ -1,8 +1,10 @@
 import { FaUserEdit } from "react-icons/fa";
-import { TiUserDeleteOutline } from "react-icons/ti";
 import { formatoHora, formatoFechaLarga } from "../../../helpers/formDate";
+import { MdFolderDelete } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
 
-const TableItemBookings = ({ columns, items, onEdit, isCliente }) => {
+
+const TableItemBookings = ({ columns, items, onEdit, onDelete, isCliente }) => {
   return (
     <div>
       <table className="w-full text-sm text-left text-gray-500">
@@ -35,13 +37,13 @@ const TableItemBookings = ({ columns, items, onEdit, isCliente }) => {
                 {item.estado}
               </td>
               {isCliente ? (
-                <td className="gap-8 flex justify-items-start px-12 py-4">
-                  <button ><TiUserDeleteOutline size={26}/>Cancelar</button>
+                <td className="flex justify-items-center px-8 py-4">
+                  <button className="cursor-pointer" onClick={() =>  onDelete(item)}><MdFolderDelete  size={26}/></button>
                 </td>
               ) : (
               <td className="gap-8 flex justify-items-start px-6 py-4">
-                <button className="cursor-pointer" onClick={() => onEdit(item)}><FaUserEdit size={23}/></button>
-                <button ><TiUserDeleteOutline size={26}/></button>
+                <button className="cursor-pointer" onClick={() => onEdit(item)}><CiEdit  size={23}/></button>
+                <button className="cursor-pointer" onClick={() => onDelete(item)} ><MdFolderDelete size={26}/></button>
               </td>
               )}
             </tr>

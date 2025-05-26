@@ -6,6 +6,7 @@ import Modal from "../../../components/users/modal-form/Modal";
 import { getAddUserCard, userTypeCards } from "./userConfig/UsuariosConfig";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../hooks/AuthProvider";
+import useDeleteData from "../../../hooks/useDeleteData";
 
 const columns = [
     { label: "Nombre" },
@@ -15,9 +16,11 @@ const columns = [
 ];
 
 const UsuarioAdmin = () => {
-  const { data: users, error, refetch } = useFetchData({ endpoint: "users" });  
+
+  const { data: users, error, refetch } = useFetchData({ endpoint: "users" }); 
+  const  {deleteData} = useDeleteData();
   const { openModal, showModal, closeModal } = useModal();
-  const {usuario} = useContext(AuthContext)
+  const {usuario, token} = useContext(AuthContext)
   
   const [isEdit, setIsEdit] = useState(false);
   const [selectedUser, setSeletedUser] = useState(null)
@@ -30,10 +33,23 @@ const UsuarioAdmin = () => {
 
   const handleEditUser = (user) => {
     setSeletedUser(user)
+    console.log(user.id)
     setIsEdit(true)
     openModal();
   };
 
+  const handleDeleteUser = async (user) => {
+    console.log(token)
+    if (!window.confirm(`¿Seguro quieres eliminar a ${user.nombre}?`)) return;
+    try {
+      const response = await deleteData({data: user, endpoint: "users", tokenUser: token});
+      alert(response.message);
+      refetch();
+    } catch (err) {
+      alert("Error al eliminar el usuario: " + err.message);
+    }
+  };
+  
   const handleCloseModal = () => {
     closeModal()
     refetch()
@@ -62,7 +78,7 @@ const UsuarioAdmin = () => {
             <CardHome menuItems={Users} color="gray" />
           </div>
           <div className="h-auto flex flex-col justify-end px-6 mt-8 ml-20">
-            <TableItem columns={columns} items={users} onEdit={handleEditUser} />
+            <TableItem columns={columns} items={users} onEdit={handleEditUser} onDelete={handleDeleteUser} />
           </div>
         </>
       )}

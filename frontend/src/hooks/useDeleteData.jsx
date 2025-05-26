@@ -3,15 +3,14 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/";
 
-const useUpdateData = () => {
+const useDeleteData = () => {
   const [datos, setData] = useState(null);
   const [error, setError] = useState(null);
 
-  const updateData = async ({ data, endpoint, tokenUser }) => {
+  const deleteData = async ({ data, endpoint, tokenUser }) => {
     try {
-      const response = await axios.put(
-        `${API_URL}${endpoint}/${data.id}`,
-        data,
+      const response = await axios.delete(
+        `${API_URL}${endpoint}/${data.id || data.ID}`,
         {
           headers: {
             Authorization: `Bearer ${tokenUser}`,
@@ -22,13 +21,13 @@ const useUpdateData = () => {
       setError(null);
       return response.data;
     } catch (err) {
-      console.error("Error al actualizar los datos:", err.message);
+      console.error("Error al eliminar los datos:", err.message);
       setError(err);
       throw err;
     }
   };
 
-  return { updateData, datos, error };
+  return { deleteData, datos, error };
 };
-export default useUpdateData;
+export default useDeleteData;
 

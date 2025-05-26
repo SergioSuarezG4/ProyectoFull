@@ -2,7 +2,7 @@ import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { CiImageOn } from "react-icons/ci";
 
-const CardSpaces = ({ space, onEdit }) => {
+const CardSpaces = ({ space, onEdit, onDelete }) => {
   return (
     
     <div className="bg-white rounded-lg shadow-md overflow-hidden border flex flex-col justify-between min-h-[400px] hover:shadow-xl hover:scale-105 transition-transform duration-300">
@@ -31,7 +31,7 @@ const CardSpaces = ({ space, onEdit }) => {
           >
             <FiEdit size={20} />
           </button>
-          <button className="bg-red-400 p-3 cursor-pointer rounded-lg hover:bg-red-300">
+          <button onClick={onDelete} className="bg-red-400 p-3 cursor-pointer rounded-lg hover:bg-red-300">
             <MdDeleteOutline size={20} />
           </button>
         </div>

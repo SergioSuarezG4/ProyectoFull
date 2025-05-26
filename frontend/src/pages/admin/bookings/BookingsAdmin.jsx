@@ -1,9 +1,11 @@
 import { useModal } from "../../../hooks/useModal";
 import Modal from "../../../components/modal/Modal";
 import FormBookings from "../../../components/bookings/form-bookings/FormBookings";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import TableItemBookings from "../../../components/bookings/table-bookings/TableItemBookings";
 import useFetchData from "../../../hooks/useFetchData";
+import useDeleteData from "../../../hooks/useDeleteData";
+import { AuthContext } from "../../../hooks/AuthProvider";
 const columns = [
     { label: "Usuario" },
     { label: "Email" },
@@ -15,9 +17,11 @@ const columns = [
 ];
 
 const BookingsAdmin = () => {
-    const { openModal, showModal, closeModal } = useModal();
-    const { data: bookings, refetch} = useFetchData({ endpoint: "bookings" });
-
+  
+  const { openModal, showModal, closeModal } = useModal();
+  const {deleteData} = useDeleteData()
+  const { data: bookings, refetch} = useFetchData({ endpoint: "bookings" });
+  const {token} = useContext(AuthContext)
   const [selectedBooking, setSelectedBooking] = useState(null);
   
   const handleCreateBooking = () => {
@@ -29,6 +33,18 @@ const BookingsAdmin = () => {
     setSelectedBooking(booking)
     openModal();
   }
+
+  const handleDelete = async (booking) => {
+    console.log(booking)
+    if (!window.confirm(`¿Seguro quieres eliminar la numero: ${booking.ID}?`)) return;
+    try {
+      const response = await deleteData({data: booking, endpoint: "bookings", tokenUser: token});
+      alert(response.message);
+      refetch();
+    } catch (err) {
+      alert("Error al eliminar la reserva: " + err.message);
+    }
+  };
   const handleCloseModal = () => {
     closeModal();
     refetch();    
@@ -42,7 +58,7 @@ const BookingsAdmin = () => {
         </button>
       </div>
       <div>
-        <TableItemBookings columns={columns} items={bookings} onEdit={handleEditBooking} isCliente={false}/>
+        <TableItemBookings columns={columns} items={bookings} onEdit={handleEditBooking} isCliente={false} onDelete={handleDelete}/>
       </div>
       <Modal isVisible={showModal} onClose={handleCloseModal}>
         <FormBookings
