@@ -33,7 +33,6 @@ export const menuItems = {
   ],
   cliente: [
     { name: "Mis Reservas", path: "/cliente/reservas", icon: FiCalendar },
-    { name: "Mi Perfil", path: "/cliente/perfil", icon: FiUsers },
     { name: "Cerrar Sesion", path: "/logout", icon: HiLogout  },
   ],
 };

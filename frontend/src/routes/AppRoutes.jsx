@@ -8,6 +8,7 @@ import SpacesAdmin from "../pages/admin/spaces/SpacesAdmin";
 import BookingsAdmin from "../pages/admin/bookings/BookingsAdmin";
 import ProtectedRoute from "../components/protectedRoute/ProtectedRoute";
 import Logout from "../pages/auth/Logout";
+import BookingsClient from "../pages/client/bookings/BookingsCliente";
 
 const AppRoutes = () => {
   return (
@@ -43,6 +44,15 @@ const AppRoutes = () => {
             element={
               <ProtectedRoute allowedRoles={["admin"]}>
                 <BookingsAdmin />
+              </ProtectedRoute>
+            }
+          />
+          {/* Ruta para roles de clientes. */}
+          <Route
+            path="/cliente/reservas"
+            element={
+              <ProtectedRoute allowedRoles={["cliente"]}>
+                <BookingsClient/>
               </ProtectedRoute>
             }
           />
